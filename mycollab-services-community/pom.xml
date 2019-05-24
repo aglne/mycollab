@@ -5,27 +5,55 @@
     <name>mycollab-services-community</name>
     <artifactId>mycollab-services-community</artifactId>
     <parent>
-        <groupId>com.esofthead.mycollab</groupId>
+        <groupId>com.mycollab</groupId>
         <artifactId>mycollab-parent-community</artifactId>
-        <version>5.1.0</version>
+        <version>7.0.3</version>
         <relativePath>../mycollab-parent-community/pom.xml</relativePath>
     </parent>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
-            <groupId>com.esofthead.mycollab</groupId>
-            <artifactId>mycollab-migration</artifactId>
-            <version>5.1.0</version>
+            <groupId>com.mycollab</groupId>
+            <artifactId>mycollab-caching</artifactId>
+            <version>${project.version}</version>
         </dependency>
+
         <dependency>
-            <groupId>com.esofthead.mycollab</groupId>
+            <groupId>com.mycollab</groupId>
+            <artifactId>mycollab-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mycollab</groupId>
+            <artifactId>mycollab-dao</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mycollab</groupId>
             <artifactId>mycollab-services</artifactId>
-            <version>5.1.0</version>
+            <version>${project.version}</version>
         </dependency>
+
         <dependency>
-            <groupId>com.esofthead.mycollab</groupId>
+            <groupId>com.mycollab</groupId>
             <artifactId>mycollab-test</artifactId>
-            <version>5.1.0</version>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mycollab</groupId>
+            <artifactId>mycollab-migration</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.11.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

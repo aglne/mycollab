@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.esofthead.mycollab.common.dao.ActivityStreamMapperExt">
+<mapper namespace="com.mycollab.common.dao.ActivityStreamMapperExt">
 
     <resultMap id="SimpleActivityStreamResult"
-        extends="com.esofthead.mycollab.common.dao.ActivityStreamMapper.ResultMapWithBLOBs"
-        type="com.esofthead.mycollab.common.domain.SimpleActivityStream">
-
-        <result column="createdUserAvatarId" jdbcType="VARCHAR"
-            property="createdUserAvatarId" />
-
-        <result column="createdUserFullName" jdbcType="VARCHAR"
-            property="createdUserFullName" />
-
+        extends="com.mycollab.common.dao.ActivityStreamMapper.ResultMapWithBLOBs"
+        type="com.mycollab.common.domain.SimpleActivityStream">
+        <result column="createdUserAvatarId" jdbcType="VARCHAR" property="createdUserAvatarId" />
+        <result column="createdUserFullName" jdbcType="VARCHAR" property="createdUserFullName" />
         <association property="assoAuditLog" columnPrefix="log_"
-            javaType="com.esofthead.mycollab.common.domain.SimpleAuditLog"
-            resultMap="com.esofthead.mycollab.common.dao.AuditLogMapperExt.SimpleAuditLogResult" />
+            javaType="com.mycollab.common.domain.SimpleAuditLog"
+            resultMap="com.mycollab.common.dao.AuditLogMapperExt.SimpleAuditLogResult" />
     </resultMap>
 
     <sql id="querySearchCriteria">
@@ -36,6 +31,14 @@
             s_activitystream.module IN
             #repeat(${searchCriteria.moduleSet.values} $module "," "(" ")")
                 @{module}
+            #end
+        #end
+
+        #ifnotnull($searchCriteria.types)
+            ${searchCriteria.types.operation}
+            s_activitystream.type IN
+            #repeat(${searchCriteria.types.values} $type "," "(" ")")
+                @{type}
             #end
         #end
         
@@ -80,20 +83,28 @@
                 @{extraTypeId}
             #end
         #end
+
+        #ifnotnull($searchCriteria.types)
+            ${searchCriteria.types.operation}
+            s_activitystream.type IN
+            #repeat(${searchCriteria.types.values} $type "," "(" ")")
+                @{type}
+            #end
+        #end
         
         #totalCountExpr($searchCriteria.extraFields)
         ]]>
     </sql>
 
-    <select id="findPagableListByCriteria" parameterType="ActivityStreamSearchCriteria"
+    <select id="findPageableListByCriteria" parameterType="com.mycollab.common.domain.criteria.ActivityStreamSearchCriteria"
         resultMap="SimpleActivityStreamResult" lang="velocity">
         <![CDATA[
         SELECT s_activitystream.id, s_activitystream.sAccountId, s_activitystream.type, s_activitystream.typeId,
                s_activitystream.createdTime, s_activitystream.action, s_activitystream.createdUser, s_activitystream.nameField, s_activitystream.extraTypeId,
                s_activitystream.module, s_user.avatarId AS createdUserAvatarId,
-               concat(s_user.firstname, ' ', LTRIM(IFNULL(s_user.middlename, '')), s_user.lastname) as createdUserFullName,
-               m_audit_log.id AS log_id, m_audit_log.object_class AS log_object_class, m_audit_log.posteddate AS log_posteddate, m_audit_log.posteduser AS log_posteduser,
-               m_audit_log.sAccountId AS log_sAccountId, m_audit_log.type AS log_type, m_audit_log.typeid AS log_typeid, m_audit_log.module AS log_module,
+               concat(s_user.firstname, ' ', s_user.lastname) as createdUserFullName,
+               m_audit_log.id AS log_id, m_audit_log.object_class AS log_object_class, m_audit_log.createdTime AS log_createdTime, m_audit_log.createdUser AS log_createdUser,
+               m_audit_log.sAccountId AS log_sAccountId, m_audit_log.type AS log_type, m_audit_log.typeId AS log_typeid, m_audit_log.module AS log_module,
                m_audit_log.changeset AS log_changeset
         FROM s_activitystream
         LEFT OUTER JOIN s_user ON (s_user.username = s_activitystream.createdUser)
@@ -110,7 +121,7 @@
         SELECT s_activitystream.id, s_activitystream.sAccountId, s_activitystream.type, s_activitystream.typeId,
                s_activitystream.createdTime, s_activitystream.action, s_activitystream.createdUser, s_activitystream.nameField, s_activitystream.extraTypeId,
                s_activitystream.module, s_user.avatarId AS createdUserAvatarId,
-               concat(s_user.firstname, ' ', LTRIM(IFNULL(s_user.middlename, '')), s_user.lastname) as createdUserFullName,
+               concat(s_user.firstname, ' ', s_user.lastname) as createdUserFullName,
                NULL AS log_id, NULL AS log_object_class, NULL AS log_posteddate, NULL AS log_posteduser,
                NULL AS log_sAccountId, NULL AS log_type, NULL AS log_typeid, NULL AS log_module,
                s_activitystream.nameField AS log_changeset
@@ -129,13 +140,15 @@
 
     <sql id="orderStatement">
         ORDER BY
-        #ifnotnull($_parameter.searchCriteria.orderByField)
-            ${_parameter.searchCriteria.orderByField} ${_parameter.searchCriteria.sortDirection},
+        #ifnotnull($_parameter.searchCriteria.orderFields)
+            #repeat(${_parameter.searchCriteria.orderFields} $orderField "" "" "")
+                ${orderField.field} ${orderField.direction},
+            #end
         #end
         createdTime DESC
     </sql>
 
-    <select id="getTotalCount" parameterType="ActivityStreamSearchCriteria"
+    <select id="getTotalCount" parameterType="com.mycollab.common.domain.criteria.ActivityStreamSearchCriteria"
         resultType="java.lang.Integer"  lang="velocity">
         SELECT count(*) as totalCount FROM s_activitystream
         #ifnotnull($_parameter.searchCriteria)

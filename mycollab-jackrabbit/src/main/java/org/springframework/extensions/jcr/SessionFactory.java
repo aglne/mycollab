@@ -31,7 +31,7 @@ public interface SessionFactory {
     /**
      * Returns a JCR Session using the credentials and workspace on this JcrSessionFactory. The session
      * factory doesn't allow specification of a different workspace name because:
-     * <p>
+     *
      *" Each Session object is associated one-to-one with a Workspace object. The Workspace object represents
      * a `view` of an actual repository workspace entity as seen through the authorization settings of its
      * associated Session." (quote from javax.jcr.Session javadoc).
@@ -39,7 +39,7 @@ public interface SessionFactory {
      * @return the JCR session.
      * @throws RepositoryException
      */
-    public Session getSession() throws RepositoryException;
+    Session getSession() throws RepositoryException;
 
     /**
      * Returns a specific SessionHolder for the given Session. The holder provider is used internally by the
@@ -48,5 +48,5 @@ public interface SessionFactory {
      * @param session
      * @return specific sessionHolder.
      */
-    public SessionHolder getSessionHolder(Session session);
+    SessionHolder getSessionHolder(Session session);
 }

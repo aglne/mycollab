@@ -5,23 +5,18 @@
     <name>mycollab-web-community</name>
     <artifactId>mycollab-web-community</artifactId>
     <parent>
-        <groupId>com.esofthead.mycollab</groupId>
+        <groupId>com.mycollab</groupId>
         <artifactId>mycollab-parent-community</artifactId>
-        <version>5.1.0</version>
+        <version>7.0.3</version>
         <relativePath>../mycollab-parent-community/pom.xml</relativePath>
     </parent>
     <packaging>jar</packaging>
     <dependencies>
-        <dependency>
-            <groupId>com.esofthead.mycollab</groupId>
-            <artifactId>mycollab-web</artifactId>
-            <version>5.1.0</version>
-        </dependency>
 
         <dependency>
-            <groupId>org.jfree</groupId>
-            <artifactId>jfreesvg</artifactId>
-            <version>3.0</version>
+            <groupId>com.mycollab</groupId>
+            <artifactId>mycollab-web</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>

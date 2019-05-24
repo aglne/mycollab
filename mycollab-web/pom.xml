@@ -5,121 +5,118 @@
     <name>mycollab-web</name>
     <artifactId>mycollab-web</artifactId>
     <parent>
-        <groupId>com.esofthead.mycollab</groupId>
+        <groupId>com.mycollab</groupId>
         <artifactId>mycollab-parent-community</artifactId>
-        <version>5.1.0</version>
+        <version>7.0.3</version>
         <relativePath>../mycollab-parent-community/pom.xml</relativePath>
     </parent>
     <packaging>jar</packaging>
 
     <dependencies>
-
         <dependency>
-            <groupId>com.esofthead.mycollab</groupId>
+            <groupId>com.mycollab</groupId>
             <artifactId>mycollab-core</artifactId>
-            <version>5.1.0</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.esofthead.mycollab</groupId>
+            <groupId>com.mycollab</groupId>
             <artifactId>mycollab-localization</artifactId>
-            <version>5.1.0</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.esofthead.mycollab</groupId>
-            <artifactId>mycollab-ui</artifactId>
-            <version>5.1.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.esofthead.mycollab</groupId>
+            <groupId>com.mycollab</groupId>
             <artifactId>mycollab-config</artifactId>
-            <version>5.1.0</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.esofthead.mycollab</groupId>
+            <groupId>com.mycollab</groupId>
             <artifactId>mycollab-caching</artifactId>
-            <version>5.1.0</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.esofthead.mycollab</groupId>
+            <groupId>com.mycollab</groupId>
             <artifactId>mycollab-services</artifactId>
-            <version>5.1.0</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.esofthead.mycollab</groupId>
+            <groupId>com.mycollab</groupId>
             <artifactId>mycollab-esb</artifactId>
-            <version>5.1.0</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.esofthead.mycollab</groupId>
-            <artifactId>mycollab-scheduler</artifactId>
-            <version>5.1.0</version>
+            <groupId>com.mycollab</groupId>
+            <artifactId>mycollab-reporting</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.esofthead.mycollab</groupId>
+            <groupId>com.mycollab</groupId>
             <artifactId>mycollab-test</artifactId>
-            <version>5.1.0</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.esofthead.mycollab</groupId>
+            <groupId>com.mycollab</groupId>
             <artifactId>mycollab-server-runner</artifactId>
-            <version>5.1.0</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-themes</artifactId>
-            <version>${vaadinVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
         </dependency>
 
         <!-- VAADIN ADDONS -->
+
         <dependency>
-            <groupId>org.vaadin.addons</groupId>
-            <artifactId>buttongroup</artifactId>
-            <version>2.3</version>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-compatibility-client</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-push</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.vaadin.addons</groupId>
             <artifactId>popupbutton</artifactId>
-            <version>2.6.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>org.vaadin.addons</groupId>
-            <artifactId>ratingstars</artifactId>
-            <version>2.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.vaadin.addons</groupId>
-            <artifactId>dragdroplayouts</artifactId>
-            <version>1.1.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.vaadin.addons</groupId>
-            <artifactId>stylecalendar</artifactId>
-            <version>2.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.vaadin.addons</groupId>
-            <artifactId>contextmenu</artifactId>
-            <version>4.5.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.lexaden.components</groupId>
-            <artifactId>breadcrumb</artifactId>
-            <version>1.7.3</version>
+            <artifactId>vaadin-combobox-multiselect</artifactId>
+            <version>2.6</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.vaadin</groupId>
@@ -127,81 +124,41 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <dependency>
-            <groupId>org.vaadin</groupId>
-            <artifactId>suggestfield</artifactId>
-            <version>0.0.4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.vaadin.addons</groupId>
+            <groupId>org.tepi.listbuilder</groupId>
             <artifactId>listbuilder</artifactId>
-            <version>0.7.3.v7</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.esofthead.vaadin</groupId>
-            <artifactId>popupbutton</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.tltv.gantt</groupId>
-            <artifactId>gantt-addon</artifactId>
-            <version>0.9.0</version>
+            <version>1.0.0.v8</version>
         </dependency>
 
         <dependency>
             <groupId>org.vaadin.addon</groupId>
             <artifactId>confirmdialog</artifactId>
-            <version>2.1.3</version>
+            <version>3.2.0</version>
         </dependency>
 
         <dependency>
-            <groupId>com.esofthead.vaadin</groupId>
-            <artifactId>cropField</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.esofthead.vaadin</groupId>
-            <artifactId>calendarext</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-context-menu</artifactId>
+            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>org.jfree</groupId>
             <artifactId>jfreechart</artifactId>
-            <version>1.0.19</version>
+            <version>1.5.0</version>
         </dependency>
 
         <dependency>
-            <groupId>org.apache.xmlgraphics</groupId>
-            <artifactId>batik-svggen</artifactId>
-            <version>1.8</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.scribe</groupId>
-            <artifactId>scribe</artifactId>
-            <version>1.3.7</version>
-        </dependency>
-
-        <dependency>
-            <groupId>uk.com.robust-it</groupId>
-            <artifactId>cloning</artifactId>
-            <version>1.9.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-validator</groupId>
-            <artifactId>commons-validator</artifactId>
-            <version>1.4.1</version>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreesvg</artifactId>
+            <version>3.4</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>3.12</version>
+            <version>4.1.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-codec</groupId>
@@ -211,72 +168,39 @@
         </dependency>
 
         <dependency>
-            <groupId>fr.xebia.web</groupId>
-            <artifactId>xebia-servlet-extras</artifactId>
-            <version>1.0.8</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.googlecode.ez-vcard</groupId>
-            <artifactId>ez-vcard</artifactId>
-            <version>0.9.6</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.freemarker</groupId>
-                    <artifactId>freemarker</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>net.sf.opencsv</groupId>
-            <artifactId>opencsv</artifactId>
-            <version>2.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${springVersion}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.xhtmlrenderer</groupId>
-            <artifactId>flying-saucer-pdf</artifactId>
-            <version>9.0.7</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>bouncycastle</groupId>
-                    <artifactId>bcmail-jdk14</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>bouncycastle</groupId>
-                    <artifactId>bcprov-jdk14</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.bouncycastle</groupId>
-                    <artifactId>bctsp-jdk14</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.esofthead.vaadin</groupId>
-            <artifactId>floatingcomponent</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>org.vaadin.alump</groupId>
+            <artifactId>ckeditor</artifactId>
+            <version>0.1.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.vaadin.addons</groupId>
-            <artifactId>ckeditor-wrapper-for-vaadin</artifactId>
-            <version>7.10.2</version>
+            <artifactId>wizards-for-vaadin</artifactId>
+            <version>2.0.1</version>
         </dependency>
 
         <dependency>
             <groupId>org.vaadin.addons</groupId>
-            <artifactId>vaadin-sliderpanel</artifactId>
-            <version>1.1.0</version>
+            <artifactId>extended-token-field</artifactId>
+            <version>0.3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jarektoro</groupId>
+            <artifactId>responsive-layout</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.vaadin.addon</groupId>
+            <artifactId>easyuploads</artifactId>
+            <version>9.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.vaadin.addons</groupId>
+            <artifactId>stackpanel</artifactId>
+            <version>2.0.1</version>
         </dependency>
 
         <dependency>
@@ -288,30 +212,44 @@
 
         <dependency>
             <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.vaadin.addons</groupId>
+            <artifactId>vaadin-cropper</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vaadin</groupId>
             <artifactId>vaadin-sass-compiler</artifactId>
-            <version>0.9.12</version>
+            <version>0.9.13</version>
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-client</artifactId>
-            <version>${restVersion}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>jaxrs-api</artifactId>
-            <version>${restVersion}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>se.jiderhamn</groupId>
-            <artifactId>classloader-leak-prevention</artifactId>
-            <version>1.13.0</version>
+            <groupId>org.vaadin</groupId>
+            <artifactId>viritin</artifactId>
+            <version>2.9</version>
             <exclusions>
                 <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
+                    <groupId>javax.el</groupId>
+                    <artifactId>javax.el-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-compatibility-server</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.vaadin</groupId>
+                    <artifactId>vaadin-sass-compiler</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.vaadin.external.google</groupId>
+                    <artifactId>guava</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -326,20 +264,6 @@
                     <name>!environment</name>
                 </property>
             </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>com.vaadin</groupId>
-                    <artifactId>vaadin-client</artifactId>
-                    <version>${vaadinVersion}</version>
-                    <scope>provided</scope>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>javax.validation</groupId>
-                            <artifactId>validation-api</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-            </dependencies>
         </profile>
         <profile>
             <id>production</id>
@@ -373,16 +297,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>vaadin-addons</id>
-            <url>http://maven.vaadin.com/vaadin-addons</url>
-        </repository>
-        <repository>
-            <id>mycollab-repo</id>
-            <url>https://raw.githubusercontent.com/esofthead/mycollab-maven-repo/master</url>
-        </repository>
-    </repositories>
-
 </project>

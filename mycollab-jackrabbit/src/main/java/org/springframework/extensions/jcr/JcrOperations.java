@@ -23,7 +23,7 @@ import org.springframework.dao.DataAccessException;
 /**
  * Interface that specifies a basic set of JCR operations. Not often used, but a useful option to enhance
  * testability, as it can easily be mocked or stubbed.
- * <p>
+ *
  * Provides JcrTemplate's data access methods that mirror various Session methods. See the JCR Session
  * javadocs for details on those methods.
  * @author Costin Leau
@@ -39,7 +39,7 @@ public interface JcrOperations extends JcrOptionalOperations {
      * @return a result object returned by the action, or null
      * @throws org.springframework.dao.DataAccessException in case of Jcr errors
      */
-    public <T> T execute(JcrCallback<T> action, boolean exposeNativeSession) throws DataAccessException;
+    <T> T execute(JcrCallback<T> action, boolean exposeNativeSession) throws DataAccessException;
 
     /**
      * Execute the action specified by the given action object within a {@link javax.jcr.Session}. Application
@@ -51,7 +51,7 @@ public interface JcrOperations extends JcrOptionalOperations {
      * repository's default workspace will be used.
      * @param callback the <code>JCRCallback</code> that executes the client operation
      */
-    public <T> T execute(JcrCallback<T> callback) throws DataAccessException;
+    <T> T execute(JcrCallback<T> callback) throws DataAccessException;
 
     /**
      * Dump the contents of the given node in a String. This method parses the whole tree under the node and
@@ -59,13 +59,13 @@ public interface JcrOperations extends JcrOptionalOperations {
      * @param node node to be dumped (null is equivalent to the root node)
      * @return node tree in a string representation.
      */
-    public String dump(Node node);
+    String dump(Node node);
 
     /**
      * Renames a node (with the given name)
      * @param node node to rename
      * @param newName new name for the node
      */
-    public void rename(Node node, String newName);
+    void rename(Node node, String newName);
 
 }

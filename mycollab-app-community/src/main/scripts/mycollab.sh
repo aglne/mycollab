@@ -4,12 +4,6 @@
 # Control Script for the MyCollab Server
 #
 # Environment Variable Prerequisites
-#
-#   MYCOLLAB_HOME   May point at your MyCollab "build" directory.
-#   MYCOLLAB_OUT    (Optional) Full path to a file where stdout and stderr
-#                   will be redirected.
-#                   Default is $CATALINA_BASE/logs/catalina.out
-#   MYCOLLAB_PORT   Port of server to allow user access to server
 #   MYCOLLAB_OPTS   (Optional) Java runtime options used when the "start",
 #                   "stop" command is executed.
 #                   Include here and not in JAVA_OPTS all options, that should
@@ -24,9 +18,11 @@
 #                   of the catalina startup java process, when start (fork) is
 #                   used
 # -----------------------------------------------------------------------------
-export MYCOLLAB_PORT=8080
-
 # OS specific support.  $var _must_ be set to either true or false.
+
+export MYCOLLAB_PORT=8080
+export MYCOLLAB_OPTS="-noverify -server -Xms394m -Xmx768m -XX:NewSize=128m -XX:+DisableExplicitGC -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC"
+
 cygwin=false
 darwin=false
 os400=false
@@ -97,7 +93,7 @@ if [ -z "$JAVA_HOME" ] ; then
   _RUNJAVA=java
 else
   _RUNJAVA="$JAVA_HOME"/bin/java
-fi  
+fi
 
 # ----- Execute The Requested Command -----------------------------------------
 
@@ -107,15 +103,15 @@ if [ $have_tty -eq 1 ]; then
   if [ "$1" = "debug" ] ; then
     echo "Using JAVA_HOME:       $JAVA_HOME"
   fi
-  
+
   if [ ! -z "$MYCOLLAB_PID" ]; then
     echo "Using MYCOLLAB_PID:    $MYCOLLAB_PID"
   fi
 fi
 
+echo Param "$1"
 
-
-if [ "$1" = "start" ] ; then
+if [ "$1" = "--start" ] ; then
 
   if [ ! -z "$MYCOLLAB_PID" ]; then
     if [ -f "$MYCOLLAB_PID" ]; then
@@ -158,14 +154,13 @@ if [ "$1" = "start" ] ; then
   shift
   touch "$MYCOLLAB_OUT"
   cd ..
-  eval \"$_RUNJAVA\" -jar $MYCOLLAB_HOME/executor.jar --port $MYCOLLAB_PORT
- ####>> "$MYCOLLAB_OUT" 2>&1 "&"
+  eval \"$_RUNJAVA\" -jar $MYCOLLAB_HOME/executor.jar $MYCOLLAB_OPTS -Dserver.port=$MYCOLLAB_PORT &
 
   if [ ! -z "$MYCOLLAB_PID" ]; then
     echo $! > "$MYCOLLAB_PID"
   fi
 
-elif [ "$1" = "stop" ] ; then
+elif [ "$1" = "--stop" ] ; then
 
   shift
 
@@ -202,7 +197,7 @@ elif [ "$1" = "stop" ] ; then
   fi
 
   cd ..
-  eval \"$_RUNJAVA\" -jar $MYCOLLAB_HOME/runner.jar
+  eval \"$_RUNJAVA\" -jar $MYCOLLAB_HOME/executor.jar --stop $MYCOLLAB_OPTS
 
   if [ ! -z "$MYCOLLAB_PID" ]; then
     if [ -f "$MYCOLLAB_PID" ]; then

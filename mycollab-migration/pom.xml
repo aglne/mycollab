@@ -5,47 +5,46 @@
     <name>mycollab-migration</name>
     <artifactId>mycollab-migration</artifactId>
     <parent>
-        <groupId>com.esofthead.mycollab</groupId>
+        <groupId>com.mycollab</groupId>
         <artifactId>mycollab-parent-community</artifactId>
-        <version>5.1.0</version>
+        <version>7.0.3</version>
         <relativePath>../mycollab-parent-community/pom.xml</relativePath>
     </parent>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
-            <groupId>com.esofthead.mycollab</groupId>
+            <groupId>com.mycollab</groupId>
             <artifactId>mycollab-core</artifactId>
-            <version>5.1.0</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.esofthead.mycollab</groupId>
-            <artifactId>mycollab-dao</artifactId>
-            <version>5.1.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.esofthead.mycollab</groupId>
+            <groupId>com.mycollab</groupId>
             <artifactId>mycollab-config</artifactId>
-            <version>5.1.0</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.esofthead.mycollab</groupId>
-            <artifactId>mycollab-services</artifactId>
-            <version>5.1.0</version>
+            <groupId>com.mycollab</groupId>
+            <artifactId>mycollab-dao</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mycollab</groupId>
+            <artifactId>mycollab-localization</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>3.2.1</version>
         </dependency>
 
         <dependency>
-            <groupId>org.jcodec</groupId>
-            <artifactId>jcodec</artifactId>
-            <version>0.1.9</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
         </dependency>
+
     </dependencies>
 </project>

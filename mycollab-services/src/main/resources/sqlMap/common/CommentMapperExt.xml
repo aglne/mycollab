@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.esofthead.mycollab.common.dao.CommentMapperExt">
+<mapper namespace="com.mycollab.common.dao.CommentMapperExt">
     
     <resultMap id="BaseResultMap"
-        extends="com.esofthead.mycollab.common.dao.CommentMapper.ResultMapWithBLOBs"
-        type="com.esofthead.mycollab.common.domain.SimpleComment">
-
-        <result column="ownerAvatarId" jdbcType="VARCHAR"
-            property="ownerAvatarId" />
-
-        <result column="ownerFullName" jdbcType="VARCHAR"
-            property="ownerFullName" />
+        extends="com.mycollab.common.dao.CommentMapper.ResultMapWithBLOBs"
+        type="com.mycollab.common.domain.SimpleComment">
+        <result column="ownerAvatarId" jdbcType="VARCHAR" property="ownerAvatarId" />
+        <result column="ownerFullName" jdbcType="VARCHAR" property="ownerFullName" />
     </resultMap>
 
     <sql id="querySearchCriteria">
@@ -21,8 +17,12 @@
             ${searchCriteria.type.operation} m_comment.type = @{searchCriteria.type.value}
         #end
         
-        #ifnotnull($searchCriteria.typeid)
-            ${searchCriteria.typeid.operation} m_comment.typeid = @{searchCriteria.typeid.value}
+        #ifnotnull($searchCriteria.typeId)
+            ${searchCriteria.typeId.operation} m_comment.typeId = @{searchCriteria.typeId.value}
+        #end
+
+        #ifnotnull($searchCriteria.saccountid)
+            ${searchCriteria.saccountid.operation} m_comment.sAccountId = @{searchCriteria.saccountid.value,jdbcType=NUMERIC}
         #end
         ]]>
     </sql>
@@ -32,7 +32,7 @@
             SELECT m_comment.id, m_comment.comment, m_comment.createdUser, m_comment.createdTime, 
                    m_comment.type, m_comment.typeId, m_comment.sAccountId, m_comment.extraTypeId,
                    s_user.avatarId AS ownerAvatarId,
-                   concat(s_user.firstname, ' ', LTRIM(IFNULL(s_user.middlename, '')), s_user.lastname) as ownerFullName
+                   concat(s_user.firstname, ' ', s_user.lastname) as ownerFullName
                 FROM m_comment
                     LEFT OUTER JOIN s_user ON m_comment.createdUser = s_user.username
         ]]>
@@ -40,16 +40,16 @@
 
     <sql id="orderStatement">
         ORDER BY
-        #ifnotnull($_parameter.searchCriteria.orderByField)
-            ${_parameter.searchCriteria.orderByField} ${_parameter.searchCriteria.sortDirection},
+        #ifnotnull($_parameter.searchCriteria.orderFields)
+            #repeat(${_parameter.searchCriteria.orderFields} $orderField "" "" "")
+                ${orderField.field} ${orderField.direction},
+            #end
         #end
         createdTime DESC
     </sql>
 
-    <select id="findPagableListByCriteria" parameterType="CommentSearchCriteria"
-        resultMap="BaseResultMap" lang="velocity">
-        <include
-            refid="selectSimpleComment" />
+    <select id="findPageableListByCriteria" parameterType="com.mycollab.common.domain.criteria.CommentSearchCriteria" resultMap="BaseResultMap" lang="velocity">
+        <include refid="selectSimpleComment" />
          #ifnotnull($_parameter.searchCriteria)
             #trimext("WHERE" "AND|OR")
                 <include
@@ -57,6 +57,15 @@
             #end
          #end   
          <include refid="orderStatement" />
+    </select>
+
+    <select id="getTotalCount" parameterType="com.mycollab.common.domain.criteria.CommentSearchCriteria" resultType="java.lang.Integer" lang="velocity">
+        SELECT count(*) as totalCount FROM m_comment
+        #ifnotnull($_parameter.searchCriteria)
+            #trimext("WHERE" "AND|OR")
+                <include refid="querySearchCriteria" />
+            #end
+        #end
     </select>
 
 </mapper>
